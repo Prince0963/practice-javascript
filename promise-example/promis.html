@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div id="display"></div>
+    <script>
+      async function apicall() {
+        let api1 = await fetch("https://fakestoreapi.com/products");
+        let ppp = await api1.json();
+
+        let api2 = await fetch("https://course-api.com/javascript-store-products");
+        let kkk = await api2.json();
+
+        let u = [...ppp, ...kkk];
+        dis(u);
+
+        console.log(u);
+      }
+
+      apicall();
+
+      function dis(u) {
+        let mno = u.map(function (value) {
+          return `
+          <img src="${value.image || value.fields.image[0].url}" class="card-img-top" alt="...">
+                <h5 class="card-title">${value.id}</h5>
+                <p class="card-text">${value.price || value.fields.price} </p>
+                </div>
+            </div>
+            </div>`;
+        });
+
+        document.getElementById("display").innerHTML = mno.join(" ");
+      }
+    </script>
+  </body>
+</html>
+
